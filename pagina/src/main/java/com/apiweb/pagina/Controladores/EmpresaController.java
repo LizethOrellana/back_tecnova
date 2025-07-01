@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/empresa")
+@RequestMapping("/api/empresa")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")  // <— permite solicitudes desde Angular
-
+@CrossOrigin(origins = "*") // permite solicitudes desde el frontend
 public class EmpresaController {
 
     private final EmpresaService empresaService;
@@ -22,7 +21,7 @@ public class EmpresaController {
     public ResponseEntity<Empresa> getEmpresa() {
         Optional<Empresa> empresa = empresaService.findFirst();
         return empresa.map(ResponseEntity::ok)
-                      .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // POST/PUT empresa con banners
@@ -36,9 +35,8 @@ public class EmpresaController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmpresa(@PathVariable Long id) {
         boolean deleted = empresaService.deleteById(id);
-        if (deleted) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        return deleted
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 }

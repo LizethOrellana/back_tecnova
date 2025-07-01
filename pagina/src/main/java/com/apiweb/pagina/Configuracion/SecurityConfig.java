@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -25,9 +24,10 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(request -> {
                     var configuration = new org.springframework.web.cors.CorsConfiguration();
-                    configuration.setAllowedOrigins(java.util.List.of("*"));
+                    configuration.setAllowedOrigins(java.util.List.of("http://localhost:4200"));
                     configuration.setAllowedMethods(java.util.List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     configuration.setAllowedHeaders(java.util.List.of("*"));
+                    configuration.setAllowCredentials(true);
                     return configuration;
                 }))
                 .authorizeHttpRequests(auth -> auth
@@ -48,7 +48,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    // ✅ Este es el bean que faltaba:
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
