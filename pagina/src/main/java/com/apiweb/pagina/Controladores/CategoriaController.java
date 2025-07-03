@@ -47,10 +47,9 @@ public class CategoriaController {
 
     // DELETE /api/categorias/{id} - Eliminar categoría
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (categoriaService.eliminar(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Categoria> eliminar(@PathVariable Long id) {
+        return categoriaService.eliminar(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

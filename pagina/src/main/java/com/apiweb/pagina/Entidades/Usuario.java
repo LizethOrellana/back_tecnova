@@ -26,6 +26,9 @@ public class Usuario {
     private String telefono;
     private String username;
     private String password;
+
+    //1 activo
+    //0 inactivo
     private int estaActivo;
     
     @ManyToOne

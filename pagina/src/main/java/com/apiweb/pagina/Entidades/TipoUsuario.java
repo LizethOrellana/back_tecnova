@@ -25,4 +25,5 @@ public class TipoUsuario {
     private long secuencial;
 
     private String nombre;
+    private Boolean estado;
 }

@@ -7,19 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "categorias")
+@Table(name = "footer")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Categoria {
+public class Footer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String nombre;
     private String descripcion;
-    private Boolean estado;
-    // Getters y Setters
+    private String autores;
 }

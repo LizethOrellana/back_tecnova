@@ -34,16 +34,16 @@ public class CategoriaService {
         return categoriaRepository.findById(id).map(categoria -> {
             categoria.setNombre(nuevaCategoria.getNombre());
             categoria.setDescripcion(nuevaCategoria.getDescripcion());
+            categoria.setEstado(nuevaCategoria.getEstado());
             return categoriaRepository.save(categoria);
         });
     }
 
     // ✅ Eliminar categoría por ID
-    public boolean eliminar(Long id) {
-        if (categoriaRepository.existsById(id)) {
-            categoriaRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public Optional<Categoria> eliminar(Long id) {
+        return categoriaRepository.findById(id).map(categoria -> {
+            categoria.setEstado(false);
+            return categoriaRepository.save(categoria);
+        });
     }
 }
