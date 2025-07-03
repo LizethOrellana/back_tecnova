@@ -30,6 +30,13 @@ public class ProductoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // ✅ GET /api/productos/buscar?nombre=nombreProducto - Buscar por nombre
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre) {
+        List<Producto> productos = productoService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(productos);
+    }
+
     // POST /api/productos - Crear nuevo producto
     @PostMapping
     public ResponseEntity<Producto> crear(@RequestBody Producto producto) {

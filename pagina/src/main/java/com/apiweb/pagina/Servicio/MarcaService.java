@@ -34,16 +34,16 @@ public class MarcaService {
         return marcaRepository.findById(id).map(marca -> {
             marca.setNombre(nuevaMarca.getNombre());
             marca.setPaisOrigen(nuevaMarca.getPaisOrigen());
+            marca.setEstado(nuevaMarca.getEstado());
             return marcaRepository.save(marca);
         });
     }
 
     // ✅ Eliminar marca por ID
-    public boolean eliminar(Long id) {
-        if (marcaRepository.existsById(id)) {
-            marcaRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public Optional<Marca> eliminar(Long id) {
+        return marcaRepository.findById(id).map(marca -> {
+            marca.setEstado(false);
+            return marcaRepository.save(marca);
+        });
     }
 }

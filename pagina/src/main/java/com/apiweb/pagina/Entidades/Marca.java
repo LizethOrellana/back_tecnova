@@ -20,6 +20,7 @@ public class Marca {
 
     private String nombre;
     private String paisOrigen;
+    private Boolean estado;
 
     // Getters y Setters
 }

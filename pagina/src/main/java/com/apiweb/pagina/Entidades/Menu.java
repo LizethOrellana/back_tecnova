@@ -15,4 +15,9 @@ public class Menu {
     private String icono;         // Clase del ícono (opcional, ej: "fa fa-home")
     private String ruta;          // URL del router/link
     private boolean activo = true; // Si se muestra o no en el frontend
+
+    //0 = público (sin iniciar sesión)
+    //1 = usuario común (logeado)
+    //2 = admin
+    private Integer nivel_acceso;
 }

@@ -47,10 +47,9 @@ public class MarcaController {
 
     // DELETE /api/marcas/{id} - Eliminar una marca
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (marcaService.eliminar(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    public ResponseEntity<Marca> eliminar(@PathVariable Long id) {
+        return marcaService.eliminar(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }
