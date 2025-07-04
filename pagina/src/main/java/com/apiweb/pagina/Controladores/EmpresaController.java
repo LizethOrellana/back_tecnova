@@ -31,6 +31,12 @@ public class EmpresaController {
         return ResponseEntity.ok(saved);
     }
 
+    @PostMapping("/banner")
+    public ResponseEntity<Empresa> updateBanner(@RequestBody Empresa empresa) {
+        Empresa saved = empresaService.updateBanner(empresa);
+        return ResponseEntity.ok(saved);
+    }
+
     // DELETE empresa
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEmpresa(@PathVariable Long id) {

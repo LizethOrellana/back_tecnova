@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.*;
-import org.hibernate.annotations.GeneratorType;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -24,7 +23,7 @@ import jakarta.persistence.OneToMany;
 public class Empresa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long secuencial;
+    private Long id;
     private String nombre;
     private String logo;
     private String mision;
