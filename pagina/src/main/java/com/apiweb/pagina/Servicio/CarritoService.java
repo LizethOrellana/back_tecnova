@@ -19,6 +19,13 @@ public class CarritoService {
         return carritoRepository.findAll();
     }
 
+    // Obtener por usuario
+    public List<Carrito> obtenerHistorialPorUsuario(Long usuarioId) {
+        return carritoRepository.findByUsuarioSecuencialWithProductos(usuarioId);
+    }
+
+
+
     // ✅ Obtener un carrito por ID
     public Optional<Carrito> obtenerPorId(Long id) {
         return carritoRepository.findById(id);

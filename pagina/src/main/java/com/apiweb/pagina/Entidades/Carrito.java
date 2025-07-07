@@ -1,5 +1,6 @@
 package com.apiweb.pagina.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "carritos")
@@ -25,6 +27,11 @@ public class Carrito {
 
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
-    // Getters y Setters
+    @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<CarritoProducto> productos; // ← Aquí
+
+
 }
+
 

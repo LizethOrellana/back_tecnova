@@ -1,5 +1,6 @@
 package com.apiweb.pagina.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,13 +20,13 @@ public class CarritoProducto {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Carrito carrito;
 
     @ManyToOne
     private Producto producto;
 
     private Integer cantidad;
-
-    // Getters y Setters
 }
+
 
