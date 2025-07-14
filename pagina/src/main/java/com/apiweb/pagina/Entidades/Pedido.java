@@ -25,7 +25,7 @@ public class Pedido {
     private Usuario usuario;
 
     private BigDecimal total;
-    private String estado = "pendiente";
+    private String estado;
     private LocalDateTime fechaPedido = LocalDateTime.now();
 
     // Getters y Setters

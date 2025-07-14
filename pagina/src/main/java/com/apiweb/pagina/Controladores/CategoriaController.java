@@ -37,6 +37,14 @@ public class CategoriaController {
         return ResponseEntity.ok(creada);
     }
 
+    // GET /api/categorias/buscar?nombre
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Categoria>> buscarPorNombre(@RequestParam String nombre) {
+        List<Categoria> resultados = categoriaService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(resultados);
+    }
+
+
     // PUT /api/categorias/{id} - Actualizar categoría
     @PutMapping("/{id}")
     public ResponseEntity<Categoria> actualizar(@PathVariable Long id, @RequestBody Categoria categoria) {

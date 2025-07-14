@@ -16,7 +16,7 @@ public class ProductoController {
     private ProductoService productoService;
 
     // GET /api/productos - Listar todos los productos
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity<List<Producto>> listarTodos() {
         List<Producto> productos = productoService.obtenerTodos();
         return ResponseEntity.ok(productos);

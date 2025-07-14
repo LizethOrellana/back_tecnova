@@ -19,10 +19,11 @@ import lombok.*;
 public class Usuario {
     @Id
     @GeneratedValue (strategy=GenerationType.IDENTITY)
-    private long secuencial;
+    private Long secuencial;
 
     private String nombre;
     private String apellido;
+    private String cedula;
     private String telefono;
     private String username;
     private String password;

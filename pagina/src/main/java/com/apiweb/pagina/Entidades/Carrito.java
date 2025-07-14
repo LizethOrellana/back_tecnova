@@ -27,6 +27,12 @@ public class Carrito {
 
     private LocalDateTime fechaCreacion = LocalDateTime.now();
 
+    private Boolean estado;
+
+    //creado
+    //cerrado
+    private String estado_proceso;
+
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CarritoProducto> productos; // ← Aquí

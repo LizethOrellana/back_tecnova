@@ -35,8 +35,11 @@ public class AuthController {
         );
 
         User user = (User) authentication.getPrincipal();
-        Usuario usuario = usuarioService.buscarUsuario(user.getUsername()).orElseThrow();
-        String token = jwtService.generateToken(usuario.getUsername());
+        Usuario usuario = usuarioService.buscarUsuario(user.getUsername())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        String token = jwtService.generateToken(usuario); // ← aquí el cambio importante
+
 
         // ✅ Devuelve token y username (como Swagger lo espera)
         return new JwtResponse(token, usuario.getUsername());

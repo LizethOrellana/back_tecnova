@@ -20,11 +20,19 @@ public class UsuarioService {
     @Lazy
     private PasswordEncoder passwordEncoder;
 
-   public Usuario guardar(Usuario usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+    public Usuario guardar(Usuario usuario) {
+        if (usuario.getPassword() != null && !usuario.getPassword().isBlank()) {
+            usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        } else {
+            // Si es edición y no se envió contraseña, recupera la original de la BD
+            Usuario existente = usuarioRepository.findById(usuario.getSecuencial()).orElseThrow();
+            usuario.setPassword(existente.getPassword());
+        }
+
         return usuarioRepository.save(usuario);
     }
-    
+
+
     public List<Usuario> listar(){
         return usuarioRepository.findAll();
     }

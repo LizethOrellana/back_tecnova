@@ -45,6 +45,24 @@ public class CarritoController {
         return ResponseEntity.ok(saved);
     }
 
+    @GetMapping("/activo/{usuarioId}")
+    public ResponseEntity<Carrito> obtenerCarritoActivo(@PathVariable Long usuarioId) {
+        return carritoService.obtenerCarritoActivo(usuarioId)
+                .map(carrito -> ResponseEntity.ok(carrito))
+                .orElse(ResponseEntity.noContent().build());
+    }
+
+    @PostMapping("/{carritoId}/producto/{productoId}/incrementar")
+    public ResponseEntity<?> incrementarProducto(
+            @PathVariable Long carritoId,
+            @PathVariable Long productoId,
+            @RequestParam(required = false, defaultValue = "1") Integer cantidad) {
+
+        carritoService.incrementarCantidad(carritoId, productoId, cantidad);
+        return ResponseEntity.ok().build();
+    }
+
+
     // ✅ PUT actualizar carrito
     @PutMapping("/{id}")
     public ResponseEntity<Carrito> updateCarrito(@PathVariable Long id, @RequestBody Carrito carrito) {
@@ -86,6 +104,15 @@ public class CarritoController {
 
         return dto;
     }
+
+    @PutMapping("/{carritoId}/marcar-pagado")
+    public ResponseEntity<Carrito> marcarCarritoComoPagado(@PathVariable Long carritoId) {
+        return carritoService.marcarComoPagado(carritoId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
 }
 
 

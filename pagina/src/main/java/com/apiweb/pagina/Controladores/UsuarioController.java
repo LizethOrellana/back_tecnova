@@ -4,12 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.apiweb.pagina.Entidades.Usuario;
 import com.apiweb.pagina.Servicio.UsuarioService;
@@ -24,22 +19,32 @@ public class UsuarioController {
     public Usuario crear(@RequestBody Usuario usuario){
         return usuarioService.guardar(usuario);
     }
-    @GetMapping 
+
+    @GetMapping
     public List<Usuario> listar(){
         return usuarioService.listar();
     }
-     @GetMapping("/{username}")
-     public Optional<Usuario> listarPorNombro(String username){
+
+    // Cambia la ruta para buscar por username (cadena)
+    @GetMapping("/username/{username}")
+    public Optional<Usuario> listarPorNombre(@PathVariable String username){
         return usuarioService.buscarUsuario(username);
-     }
-     @GetMapping ("/{secuencial}")
-     public Optional<Usuario> listarPorSecuencial(Long secuencial){
+    }
+
+    // Mantén la búsqueda por secuencial en esta ruta
+    @GetMapping("/{secuencial}")
+    public Optional<Usuario> listarPorSecuencial(@PathVariable Long secuencial){
         return usuarioService.buscarPorSecuencialUsuario(secuencial);
-     }
-     @DeleteMapping("/{secuencial}")
-     public void eliminar(Long secuencial){
+    }
+
+    @DeleteMapping("/{secuencial}")
+    public void eliminar(@PathVariable Long secuencial){
         usuarioService.eliminar(secuencial);
-     }
-    
-    
+    }
+
+    @PutMapping("/{secuencial}")
+    public Usuario editar(@PathVariable Long secuencial, @RequestBody Usuario usuario) {
+        usuario.setSecuencial(secuencial);
+        return usuarioService.guardar(usuario);
+    }
 }

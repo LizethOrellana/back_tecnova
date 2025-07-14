@@ -1,6 +1,7 @@
 package com.apiweb.pagina.Servicio;
 
 
+import com.apiweb.pagina.Entidades.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -59,12 +62,24 @@ public class JwtService {
         byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-    public String generateToken(String username) {
+    public String generateToken(Usuario usuario) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("secuencial", usuario.getSecuencial());
+        claims.put("cedula",usuario.getCedula());
+        claims.put("sub", usuario.getUsername());
+        claims.put("nombre", usuario.getNombre());
+        claims.put("apellido", usuario.getApellido());
+        claims.put("telefono", usuario.getTelefono());
+        claims.put("email", usuario.getUsername()); // si no usas email, puedes omitirlo
+        claims.put("nivel_acceso", usuario.getTipoUsuario().getSecuencial());
+
         return Jwts.builder()
-                .setSubject(username)
+                .setClaims(claims)
+                .setSubject(usuario.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1 hora
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)  // Aquí
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
+
 }

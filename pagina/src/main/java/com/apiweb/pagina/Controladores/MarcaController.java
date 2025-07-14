@@ -45,6 +45,14 @@ public class MarcaController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // GET /api/marcas/buscar?nombre
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Marca>> buscarPorNombre(@RequestParam String nombre) {
+        List<Marca> resultados = marcaService.buscarPorNombre(nombre);
+        return ResponseEntity.ok(resultados);
+    }
+
+
     // DELETE /api/marcas/{id} - Eliminar una marca
     @DeleteMapping("/{id}")
     public ResponseEntity<Marca> eliminar(@PathVariable Long id) {

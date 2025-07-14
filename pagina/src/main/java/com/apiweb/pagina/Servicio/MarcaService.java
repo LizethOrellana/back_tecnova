@@ -39,6 +39,11 @@ public class MarcaService {
         });
     }
 
+    public List<Marca> buscarPorNombre(String nombre) {
+        return marcaRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
+
     // ✅ Eliminar marca por ID
     public Optional<Marca> eliminar(Long id) {
         return marcaRepository.findById(id).map(marca -> {

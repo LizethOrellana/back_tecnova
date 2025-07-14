@@ -46,4 +46,9 @@ public class CategoriaService {
             return categoriaRepository.save(categoria);
         });
     }
+
+    public List<Categoria> buscarPorNombre(String nombre) {
+        return categoriaRepository.findByNombreContainingIgnoreCase(nombre);
+    }
+
 }
