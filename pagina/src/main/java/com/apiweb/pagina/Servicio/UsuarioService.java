@@ -2,7 +2,9 @@ package com.apiweb.pagina.Servicio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +44,25 @@ public class UsuarioService {
     public Optional<Usuario> buscarPorSecuencialUsuario(Long secuencial){
         return usuarioRepository.findById(secuencial);
     }
+    public Optional<Usuario> buscarPorCedula(String cedula) {
+        return usuarioRepository.findByCedula(cedula);
+    }
+
+    @Transactional
+    public boolean actualizarPasswordPorCedula(String cedula, String nuevaPassword) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByCedula(cedula);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            usuario.setPassword(passwordEncoder.encode(nuevaPassword));
+            usuarioRepository.save(usuario);
+            return true;
+        }
+        return false;
+    }
+
+
+
     public void eliminar(Long secuecuencial){
         usuarioRepository.deleteById(secuecuencial);
     }

@@ -1,12 +1,7 @@
 package com.apiweb.pagina.Entidades;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -23,10 +18,12 @@ public class Usuario {
 
     private String nombre;
     private String apellido;
+    @Column(unique = true, nullable = false)
     private String cedula;
     private String telefono;
     private String username;
     private String password;
+    private String pregunta;
 
     //1 activo
     //0 inactivo
