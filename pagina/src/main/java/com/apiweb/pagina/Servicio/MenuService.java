@@ -31,6 +31,7 @@ public class MenuService {
             menu.setNombre(nuevoMenu.getNombre());
             menu.setIcono(nuevoMenu.getIcono());
             menu.setRuta(nuevoMenu.getRuta());
+            menu.setNivel_acceso(nuevoMenu.getNivel_acceso());
             menu.setActivo(nuevoMenu.isActivo());
             return menuRepository.save(menu);
         });
