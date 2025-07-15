@@ -38,6 +38,8 @@ public class SecurityConfig {
                                 "/noticia/**",
                                 "/api/footer/**",
                                 "/api/menus/**",
+                                "/api/marcas/**",
+                                "/api/pedidos/usuario/**",
                                 "/api/tipos-usuario/**",
                                 "/usuarios/**",
                                 "/api/carritos/**",

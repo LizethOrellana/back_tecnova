@@ -14,6 +14,11 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    public List<Pedido> obtenerPedidosPorUsuario(Long usuarioId) {
+        return pedidoRepository.findByUsuarioSecuencial(usuarioId);
+    }
+
+
     // ✅ Obtener todos los pedidos
     public List<Pedido> obtenerTodos() {
         return pedidoRepository.findAll();

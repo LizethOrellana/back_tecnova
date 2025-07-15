@@ -53,4 +53,8 @@ public class PedidoController {
         }
         return ResponseEntity.notFound().build();
     }
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Pedido> obtenerPedidosPorUsuario(@PathVariable Long usuarioId) {
+        return pedidoService.obtenerPedidosPorUsuario(usuarioId);
+    }
 }
