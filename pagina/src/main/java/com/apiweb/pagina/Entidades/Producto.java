@@ -25,6 +25,7 @@ public class Producto {
     private String descripcion;
     private BigDecimal precio;
     private Integer stock;
+    @Column(columnDefinition = "TEXT")
     private String imagenUrl;
     private Boolean estado;
 

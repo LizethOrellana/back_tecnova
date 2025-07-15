@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/productos")
@@ -60,4 +62,20 @@ public class ProductoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PutMapping("/{id}/disminuirStock")
+    public ResponseEntity<?> quitarStock(@PathVariable Long id, @RequestParam int cantidad) {
+        if (cantidad <= 0) {
+            return ResponseEntity.badRequest().body("La cantidad debe ser mayor a 0");
+        }
+
+        Optional<Producto> resultado = productoService.disminuirStock(id, cantidad);
+        if (resultado.isEmpty()) {
+            return ResponseEntity.badRequest().body("Producto no encontrado o stock insuficiente");
+        }
+
+        return ResponseEntity.ok(resultado.get());
+    }
+
+
 }

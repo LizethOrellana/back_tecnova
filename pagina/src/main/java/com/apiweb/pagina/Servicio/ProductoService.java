@@ -56,4 +56,22 @@ public class ProductoService {
         return productoRepository.findByNombreContainingIgnoreCase(nombre);
     }
 
+    public Optional<Producto> disminuirStock(Long id, int cantidad) {
+        Optional<Producto> productoOpt = productoRepository.findById(id);
+        if (productoOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Producto producto = productoOpt.get();
+
+        if (producto.getStock() < cantidad) {
+            return Optional.empty();
+        }
+
+        producto.setStock(producto.getStock() - cantidad);
+        productoRepository.save(producto); // Aquí guardas el cambio
+        return Optional.of(producto);
+    }
+
+
 }
